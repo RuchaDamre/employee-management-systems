@@ -8,10 +8,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://your-vercel-app.vercel.app'
-  ]
+  origin: "https://employee-management-system-sage-ten.vercel.app"
 }));
 app.use(express.json());
 app.use('/auth', authRouter);
