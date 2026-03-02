@@ -21,7 +21,9 @@ Role-based secure endpoints
 # 🛠️ Tech Stack
 
 Frontend: React, Next.js, TypeScript, Tailwind CSS
+
 Backend: Spring Boot, Spring Security, JWT, BCrypt Password Encoder
+
 Database: PostgreSQL
 
 # 🏗️ Architecture
@@ -50,44 +52,59 @@ Maven
 PostgreSQL
 
 # Installation
+
 1️⃣ Clone the repository
+
 git clone https://github.com/your-username/employee-management-system.git
+
 2️⃣ Backend Setup (Spring Boot)
 
 Navigate to backend folder:
+
 cd backend
 
 Update application.properties with your PostgreSQL configuration:
+
 spring.datasource.url=jdbc:postgresql://localhost:5432/ems
 spring.datasource.username=your_username
 spring.datasource.password=your_password
 
 Run the application:
+
 mvn spring-boot:run
 
 Backend runs on:
+
 http://localhost:8080
+
 3️⃣ Frontend Setup (Next.js)
 
 Navigate to frontend folder:
+
 cd frontend
 
 Install dependencies:
+
 npm install
 
 Create .env.local file:
+
 NEXT_PUBLIC_API_URL=http://localhost:8080
 
 Start the development server:
+
 npm run dev
 
 Frontend runs on:
+
 http://localhost:3000
 
 # 🔐 Authentication
 
 Admin users can securely log in using email and password credentials to access the management dashboard.
+
 Admin Email - admin@gmail.com
+
 Admin Password - admin123
 
 # 📌 Project Highlights
@@ -101,8 +118,11 @@ Real-world admin panel use case
 # 👩‍💻 Author
 
 Rucha Damre
+
 Fullstack Developer | React + Java
 
 📧 Email: ruchadamre2000@gmail.com
+
 🔗 LinkedIn: https://www.linkedin.com/in/rucha-damre-23392119a/
+
 🐙 GitHub: https://github.com/RuchaDamre
