@@ -4,38 +4,86 @@ A full-stack Employee Management System designed for admin users to efficiently 
 
 # ✨ Key Features
 
-Secure admin authentication using email and password
+Secure admin authentication using JWT (JSON Web Token)
+
+Password encryption using BCrypt
 
 Employee management with full CRUD operations
 
-Searchable and paginated data tables for better usability
+RESTful API architecture
 
-Responsive, mobile-first UI with accessibility best practices
+Searchable and paginated employee data
+
+Responsive, mobile-first UI
+
+Role-based secure endpoints
 
 # 🛠️ Tech Stack
 
 Frontend: React, Next.js, TypeScript, Tailwind CSS
-Backend: Node.js, Express
+Backend: Spring Boot, Spring Security, JWT, BCrypt Password Encoder
 Database: PostgreSQL
+
+# 🏗️ Architecture
+
+Frontend (Next.js) → REST APIs → Spring Boot Backend → PostgreSQL Database
+
+Authentication Flow:
+
+Admin logs in with email & password
+
+Backend validates credentials
+
+JWT token is generated
+
+Token is sent in Authorization header for secured APIs
 
 # 🚀 Getting Started
 Prerequisites
 
 Node.js (v18+ recommended)
 
+Java 17+
+
+Maven
+
 PostgreSQL
 
 # Installation
-Clone the repository
+1️⃣ Clone the repository
 git clone https://github.com/your-username/employee-management-system.git
+2️⃣ Backend Setup (Spring Boot)
 
+Navigate to backend folder:
+cd backend
 
-Install dependencies
+Update application.properties with your PostgreSQL configuration:
+spring.datasource.url=jdbc:postgresql://localhost:5432/ems
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+
+Run the application:
+mvn spring-boot:run
+
+Backend runs on:
+http://localhost:8080
+3️⃣ Frontend Setup (Next.js)
+
+Navigate to frontend folder:
+cd frontend
+
+Install dependencies:
 npm install
 
+Create .env.local file:
+NEXT_PUBLIC_API_URL=http://localhost:8080
 
-Start the development server
+Start the development server:
 npm run dev
+
+Frontend runs on:
+http://localhost:3000
+
 # 🔐 Authentication
 
 Admin users can securely log in using email and password credentials to access the management dashboard.
@@ -53,7 +101,7 @@ Real-world admin panel use case
 # 👩‍💻 Author
 
 Rucha Damre
-Frontend Engineer | React Developer
+Fullstack Developer | React + Java
 
 📧 Email: ruchadamre2000@gmail.com
 🔗 LinkedIn: https://www.linkedin.com/in/rucha-damre-23392119a/
