@@ -29,18 +29,18 @@ function EmployeeView({ empData, pathID }: EmpData) {
 
     const dob = new Date(empData.dob).toLocaleDateString('en-GB');
     return (
-        <section className="bg-white m-auto md:w-3xl p-7 w-xs">
+        <section className="bg-white m-auto w-[300px] p-7 md:w-[800px]">
             <h1 className="text-center font-bold md:text-xl text-md pb-10">Employee Details</h1>
             <div className="flex md:flex-row flex-col">
-                <img src={`${API_URL}/images/${empData.image}`} alt="employee-profile" className="md:w-60 md:h-60 w-30 h-30 m-auto mb-5 md:m-0 rounded-full object-cover" />
+                <img src={`${API_URL}/employees/${empData.id}/image`} alt="employee-profile" className="md:w-60 md:h-60 w-28 h-28 m-auto mb-5 md:m-0 rounded-full object-cover" />
                 <div className="md:ml-20 ml-5">
-                    <p className="leading-12 font-normal text-sm"><span className="font-bold text-base">Name : &nbsp;</span>  {empData.name}</p>
-                    <p className="leading-12 font-normal text-sm"><span className="font-bold text-base">Email : &nbsp;</span>  {empData.email}</p>
-                    <p className="leading-12 font-normal text-sm"><span className="font-bold text-base">Employee ID : &nbsp;</span>  {empData.empid}</p>
-                    <p className="leading-12 font-normal text-sm"><span className="font-bold text-base">Date Of Birth : &nbsp;</span>  {dob}</p>
-                    <p className="leading-12 font-normal text-sm"><span className="font-bold text-base">Gender : &nbsp;</span>  {empData.gender}</p>
-                    <p className="leading-12 font-normal text-sm"><span className="font-bold text-base">Designation : &nbsp;</span>  {empData.role}</p>
-                    <p className="leading-12 font-normal text-sm"><span className="font-bold text-base">Salary : &nbsp;</span>  ${empData.salary}</p>
+                    <p className="mb-5 font-normal text-sm"><span className="font-bold text-base">Name : &nbsp;</span>  {empData.name}</p>
+                    <p className="mb-5 font-normal text-sm"><span className="font-bold text-base">Email : &nbsp;</span>  {empData.email}</p>
+                    <p className="mb-5 font-normal text-sm"><span className="font-bold text-base">Employee ID : &nbsp;</span>  {empData.empid}</p>
+                    <p className="mb-5 font-normal text-sm"><span className="font-bold text-base">Date Of Birth : &nbsp;</span>  {dob}</p>
+                    <p className="mb-5 font-normal text-sm"><span className="font-bold text-base">Gender : &nbsp;</span>  {empData.gender}</p>
+                    <p className="mb-5 font-normal text-sm"><span className="font-bold text-base">Designation : &nbsp;</span>  {empData.role}</p>
+                    <p className="mb-5 font-normal text-sm"><span className="font-bold text-base">Salary : &nbsp;</span>  ${empData.salary}</p>
                 </div>
             </div>
         </section>

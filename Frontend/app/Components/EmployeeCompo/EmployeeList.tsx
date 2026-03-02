@@ -15,10 +15,10 @@ function EmployeeList() {
 
     React.useEffect(() => {
         async function fetchData() {
-            const response = await fetch(`${API_URL}/employee/`);
+            const response = await fetch(`${API_URL}/employees`);
             const json = await response.json();
-            setData(json.employees);
-            setFilterEmp(json.employees);
+            setData(json);
+            setFilterEmp(json);
         }
         fetchData();
     }, []);
@@ -27,6 +27,27 @@ function EmployeeList() {
     function handleFilter(e: React.ChangeEvent<HTMLInputElement>) {
         const records = data.filter((value) => value?.name?.toLowerCase().includes(e.target.value.toLowerCase()));
         setFilterEmp(records);
+    }
+
+    async function handleDelete(row: Data) {
+        const ans = confirm("Are you sure you want to delete this employee?");
+        if (ans) {
+            const response = await fetch(`${API_URL}/employees/${row.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+            });
+
+            if (response.ok) {
+                const updatedData = data.filter(emp => emp.id !== row.id);
+                setData(updatedData);
+                setFilterEmp(updatedData);
+            } else {
+                alert("Delete failed");
+            }
+        }
     }
 
     const columns: TableColumn<Data>[] = [
@@ -38,7 +59,7 @@ function EmployeeList() {
         {
             name: 'Image',
             cell: (row) => (
-                <img src={`${API_URL}/images/${row.image}`} className="w-15 h-15 rounded-full object-cover" alt='Employee-Profile' />
+                <img src={`${API_URL}/employees/${row.id}/image`} className="w-16 h-16 rounded-full object-cover" alt='Employee-Profile' />
             ),
             width: '100px',
         },
@@ -50,21 +71,23 @@ function EmployeeList() {
         {
             name: 'DOB',
             selector: (row) => new Date(row.dob).toLocaleDateString('en-GB'),
-            width: '100px',
+            width: '120px',
         },
         {
             name: 'Role',
             selector: (row) => row.role,
-            width: '150px'
+            width: '150px',
         },
         {
             name: 'Actions',
             cell: (row) => (
                 <div>
-                    <Link href={`/dashboard/employee/${row.id}`}><button className="text-white rounded-sm md:text-xs text-[10px] bg-yellow-600 md:py-1 py-1 px-1 md:px-4 cursor-pointer md:mr-3 mr-2">View</button></Link>
-                    <Link href={`/dashboard/employee/edit-employee/${row.id}`}><button className="text-white rounded-sm md:text-xs text-[10px] bg-teal-600 md:py-1 md:px-4 py-1 mr-1 px-1 cursor-pointer">Edit</button></Link>
+                    <Link href={`/dashboard/employee/${row.id}`}><button className="text-white rounded-sm md:text-xs text-[10px] bg-yellow-600 md:py-1 py-1 px-1 md:px-4 cursor-pointer md:mr-1">View</button></Link>
+                    <Link href={`/dashboard/employee/edit-employee/${row.id}`}><button className="text-white rounded-sm md:text-xs text-[10px] bg-teal-600 md:py-1 md:px-4 py-1 md:mr-1 ml-2 px-1 cursor-pointer">Edit</button></Link>
+                    <button onClick={() => handleDelete(row)} className="text-white rounded-sm md:text-xs text-[10px] bg-red-900 md:py-1 md:px-4 py-1 md:mr-1 ml-2 px-1 cursor-pointer">Delete</button>
                 </div>
             ),
+            width: '250px',
         },
     ];
 
@@ -93,7 +116,7 @@ function EmployeeList() {
     };
 
     return (
-        <div className="md:ml-87.5 md:mr-7 px-2 md:px-0">
+        <div className="md:ml-[350px] md:mr-7 px-2 md:px-0">
             <h2 className="mt-5 md:text-xl font-bold mb-5 text-center">Manage Employees</h2>
             <div className="flex justify-between items-center">
                 <input type="search" className="border-2 rounded-md bg-white border-gray-300 md:p-1 p-0.5 w-35 md:w-50 md:text-sm text-xs" placeholder="Search By Name" onChange={handleFilter} />

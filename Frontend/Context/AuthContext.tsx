@@ -7,7 +7,6 @@ type Props = {
 }
 
 export type User = {
-    role: string,
     email: string,
 }
 
@@ -39,18 +38,22 @@ function AuthContext({ children }: Props) {
                 const response = await fetch(`${API_URL}/auth/verify`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                const data = await response.json();
-                if (data.success) {
-                    setUser(data.user);
+                if (!response.ok) {
+                    throw new Error("Invalid token");
                 }
+
+                const data = await response.json();
+                setUser({ email: data.email });
             }
             catch (error) {
+                localStorage.removeItem("token");
                 setUser(null);
             }
             finally {
                 setLoading(false);
             }
-        }
+        };
+
         verifyUser();
     }, []);
 
@@ -59,12 +62,15 @@ function AuthContext({ children }: Props) {
     }
 
     const logout = () => {
+        localStorage.removeItem("token");
         setUser(null);
     }
 
-    return (<authContext.Provider value={{ user, login, logout, loading, pathID, setPathID }}>
-        {children}
-    </authContext.Provider>)
+    return (
+        <authContext.Provider value={{ user, login, logout, loading, pathID, setPathID }}>
+            {children}
+        </authContext.Provider>
+    )
 }
 
 export const useAuthContext = () => {
